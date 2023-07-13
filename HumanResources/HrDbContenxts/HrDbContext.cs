@@ -6,7 +6,7 @@ namespace HumanResources.HrDbContenxts
     public class HrDbContext:DbContext
     {
         public DbSet<Employee> Employees { get; set; }
-
+        public DbSet<Project> Projects { get; set; }
 
         public HrDbContext()
         {
