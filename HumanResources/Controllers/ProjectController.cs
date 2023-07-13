@@ -23,6 +23,21 @@ namespace HumanResources.Controllers
                 .ToList()
                 );
         }
+
+
+        public IActionResult FundedProjects()
+        {
+            return View(_context
+                .Projects
+                .Where(project => project.Version=="2")
+                .Include("Employee")
+                .ToList()
+                );
+        }
+
+
+
+
         public IActionResult News()
         {
             return View();
