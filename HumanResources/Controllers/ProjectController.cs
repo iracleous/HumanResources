@@ -1,5 +1,7 @@
 ﻿using HumanResources.HrDbContenxts;
+using HumanResources.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HumanResources.Controllers
 {
@@ -15,13 +17,37 @@ namespace HumanResources.Controllers
 
         public IActionResult Index()
         {
-            return View( _context.Projects.ToList());
+            return View( _context
+                .Projects
+                .Include("Employee")
+                .ToList()
+                );
         }
         public IActionResult News()
         {
-
-
             return View();
         }
+ 
+        public IActionResult NewProject()
+        {
+            return View(_context
+                .Employees
+                .ToList());
+        }
+
+        [HttpPost]
+        public IActionResult DoNewProject([Bind("Name")] Project project, 
+            [Bind("EmployeeId")] int employeeId)
+        {
+
+            _context.Projects.Add(project);
+            var employee = _context.Employees.Find(employeeId);
+            project.Employee = employee;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
     }
 }

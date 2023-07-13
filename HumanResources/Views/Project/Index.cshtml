@@ -8,9 +8,13 @@
 
 
 <table>
-    <tr><td>Name</td></tr>
-    @foreach (var item in Model)
+    <tr><th>Name</th><th>Employee name</th></tr>
+    @foreach (var project in Model)
     {
-    <tr><td>@item.Name</td></tr>
+        <tr><td>@project.Name</td> <td>
+            
+                @{ var message = project.Employee != null ? project.Employee.Name : "";}
+                @message    </td>
+        </tr>
     }
 </table>
