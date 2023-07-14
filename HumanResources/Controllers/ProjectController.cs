@@ -62,7 +62,8 @@ namespace HumanResources.Controllers
             var employee = _context.Employees.Find(employeeId);
             project.Employee = employee;
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            //  return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Project", new { area = "" });
         }
 
 
