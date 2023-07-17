@@ -1,4 +1,5 @@
 using HumanResources.HrDbContenxts;
+using HumanResources.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,11 +9,12 @@ builder.Services.AddControllersWithViews();
 
 
 
-var myConn = "Data Source=(local);Initial Catalog=hrDatabase;" +
-    "User Id=sa; Password=passw0rd;TrustServerCertificate=True; ";
-   
+    
 builder.Services.AddDbContext<HrDbContext>(options =>
-        options.UseSqlServer( myConn ));
+        options.UseSqlServer(builder.Configuration
+           .GetConnectionString("MyConn")));
+
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 
 var app = builder.Build();

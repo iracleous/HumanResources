@@ -1,5 +1,6 @@
 ﻿using HumanResources.HrDbContenxts;
 using HumanResources.Models;
+using HumanResources.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,34 +9,24 @@ namespace HumanResources.Controllers
     public class ProjectController : Controller
     {
 
-        private readonly HrDbContext _context;
+        private readonly IProjectService _projectService;
 
-        public ProjectController(HrDbContext context)
+
+        public ProjectController(  IProjectService projectService)
         {
-            _context = context;
+          
+            _projectService = projectService;
         }
 
         public IActionResult Index()
         {
-            List<Project> projects = _context
-                             .Projects
-                             .Include("Employee")
-                             .ToList();
-
-            return View(projects);
+             return View(_projectService.GetAllProjectsWithEmployees());
         }
 
 
         public IActionResult FundedProjects()
         {
-
-            List<Project> projects = _context
-                            .Projects
-                            .Where(project => project.Version == "2")
-                            .Include("Employee")
-                            .ToList();
-
-            return View(projects);
+           return View(_projectService.GetAllProjectsFunded());
         }
 
 
@@ -48,9 +39,8 @@ namespace HumanResources.Controllers
  
         public IActionResult NewProject()
         {
-            return View(_context
-                .Employees
-                .ToList());
+            ViewData["employees"] = _projectService.GetEmployees();
+            return View(_projectService.GetEmployees());
         }
 
         [HttpPost]
@@ -58,10 +48,7 @@ namespace HumanResources.Controllers
             [Bind("EmployeeId")] int employeeId)
         {
 
-            _context.Projects.Add(project);
-            var employee = _context.Employees.Find(employeeId);
-            project.Employee = employee;
-            _context.SaveChanges();
+            _projectService.SaveProject(project, employeeId);
             //  return RedirectToAction(nameof(Index));
             return RedirectToAction("Index", "Project", new { area = "" });
         }

@@ -5,6 +5,7 @@
 *@
 @{
     Layout = "~/Views/Shared/_ProjectLayout.cshtml";
+    List<Employee> Employees = ViewData["employees"] as List<Employee>;
 }
 
 
@@ -12,6 +13,15 @@
     Name<input type="text" name="Name" id="Name" 
         placehoder="Name" />
 <br />
+
+<h1>Employees</h1> 
+    @foreach (var employee in Employees)
+    {
+        <option value="@employee.Id">@employee.Name</option>
+    }
+
+</hr>
+
 Employee<select name="EmployeeId">
         <option value="0">---</option>
         @foreach(var employee in Model)
