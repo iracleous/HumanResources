@@ -8,13 +8,9 @@ namespace HumanResources.Controllers
 {
     public class ProjectController : Controller
     {
-
         private readonly IProjectService _projectService;
-
-
-        public ProjectController(  IProjectService projectService)
+        public ProjectController(IProjectService projectService)
         {
-          
             _projectService = projectService;
         }
 
@@ -23,14 +19,10 @@ namespace HumanResources.Controllers
              return View(_projectService.GetAllProjectsWithEmployees());
         }
 
-
         public IActionResult FundedProjects()
         {
            return View(_projectService.GetAllProjectsFunded());
         }
-
-
-
 
         public IActionResult News()
         {
@@ -47,13 +39,8 @@ namespace HumanResources.Controllers
         public IActionResult DoNewProject([Bind("Name")] Project project, 
             [Bind("EmployeeId")] int employeeId)
         {
-
             _projectService.SaveProject(project, employeeId);
-            //  return RedirectToAction(nameof(Index));
             return RedirectToAction("Index", "Project", new { area = "" });
         }
-
-
-
     }
 }

@@ -14,9 +14,7 @@ namespace HumanResources.Services
             _context = context;
         }
 
-      
-
-        public List<Project> GetAllProjectsFunded()
+         public List<Project> GetAllProjectsFunded()
         {
            return _context
                             .Projects

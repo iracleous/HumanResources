@@ -7,6 +7,7 @@
         public string JobTitle { get; set; }
         public decimal Salary    { get; set; }
         public DateTime HiringDate { get; set; }
+   //     public List<Project> Projects { get; set; }
 
     }
 }
