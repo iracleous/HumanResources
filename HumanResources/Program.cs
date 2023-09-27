@@ -1,8 +1,11 @@
 using HumanResources.HrDbContenxts;
-using HumanResources.Services;
+ 
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+//cors 1 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -10,8 +13,23 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HrDbContext>(options =>
         options.UseSqlServer(builder.Configuration
            .GetConnectionString("MyConn")));
+ 
 
-builder.Services.AddScoped<IProjectService, ProjectService>();
+//cors 2 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("https://localhost:7110")
+                                                    .AllowAnyHeader()
+                                                  .AllowAnyMethod(); ;
+                      });
+});
+
+
+
+
 
 
 var app = builder.Build();
@@ -28,6 +46,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//cors 3
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

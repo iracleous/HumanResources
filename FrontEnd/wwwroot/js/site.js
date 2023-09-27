@@ -42,3 +42,47 @@ function createEmployee() {
         .fail(failure => alert(JSON.stringify(failure)));
 
 }
+
+
+
+ 
+
+function loadEmployees() {
+        let urlAPI = "https://localhost:7127/api/Employees";
+    let method = "GET";
+
+    $.ajax(
+    {
+        url: urlAPI,
+    method: method
+            })
+            .done(result => {
+        let resultData = "<table class='table'>";
+                result.forEach(employee => resultData += ('<tr>'
+            + '<td>' + employee.id + '</td>'
+            + '<td>' + employee.name + '</td>'
+            + '<td>' + employee.salary + '</td>'
+            + '<td>' + employee.jobTitle + '</td>'
+            + '<td>' + employee.hiringDate + '</td>'
+
+            + '</tr>'));
+
+        resultData += '</table>';
+    $("#employeesDiv").html(resultData);
+
+            })
+            .fail(failure => {
+        console.log('error in communication');
+    console.log(JSON.stringify(failure));
+            });
+
+
+
+
+
+}
+
+loadEmployees();
+
+ 
+ 
