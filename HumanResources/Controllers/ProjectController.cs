@@ -36,7 +36,8 @@ namespace HumanResources.Controllers
         }
 
         [HttpPost]
-        public IActionResult DoNewProject([Bind("Name")] Project project, 
+        public IActionResult DoNewProject(
+            [Bind("Name")] Project project, 
             [Bind("EmployeeId")] int employeeId)
         {
             _projectService.SaveProject(project, employeeId);
