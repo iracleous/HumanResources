@@ -4,10 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>383e41fb-826a-4cf8-98a6-faefdff4a414</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HumanResources\BackEndEmployees.csproj" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+ 
 </Project>
