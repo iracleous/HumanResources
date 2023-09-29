@@ -19,6 +19,8 @@ namespace FrontEnd.Controllers
         }
         public IActionResult Index2()
         {
+
+
             return View();
         }
 

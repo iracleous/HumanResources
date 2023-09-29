@@ -119,7 +119,7 @@ function loadEmployee2(id) {
             method: method
         })
         .done(employee => {
-            let resultData = '<ul>'
+            let resultData = 'Employee data <br><ul>'
                 + '<li> id = ' + employee.id + '</li>'
                 + '<li> name = ' + employee.name + '</li>'
                 + '<li> salary = ' + employee.salary + '</li>'

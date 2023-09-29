@@ -21,15 +21,31 @@ namespace HumanResources.ApiControllers
             _context = context;
         }
 
-        // GET: api/Employees
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+        //// GET: api/Employees
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+        //{
+        //  if (_context.Employees == null)
+        //  {
+        //      return NotFound();
+        //  }
+        //    return await _context.Employees.ToListAsync();
+        //}
+
+        // GET: api/Employees?pageNum=pageNum&pageSize=pageSize
+ [HttpGet]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees(
+         [FromQuery]   int pageNum = 1, [FromQuery] int pageSize = 20)
         {
-          if (_context.Employees == null)
-          {
-              return NotFound();
-          }
-            return await _context.Employees.ToListAsync();
+            
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
+            return await _context.Employees
+                .Skip((pageNum-1)*pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         // GET: api/Employees/5
